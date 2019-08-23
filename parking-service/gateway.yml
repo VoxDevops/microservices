@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: parking-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80 # accessing the parking service with 80 port
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*" 
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: parking-gateway-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - parking-gateway # gateway name to map with that virtual service
+  http:
+  - match:
+    - uri:
+        prefix: / # prefix / will redirect to the parking service
+    route:
+    - destination:
+        host: parking-service # service name to redirect
+        port:
+          number: 8081 # port number of that service
