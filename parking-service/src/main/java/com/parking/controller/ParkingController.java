@@ -10,6 +10,6 @@ public class ParkingController {
 
 	@GetMapping("/car")
 	public String cars() {
-		return "cars";
+		return "result";
 	}
 }
