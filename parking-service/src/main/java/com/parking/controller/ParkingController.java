@@ -10,6 +10,6 @@ public class ParkingController {
 
 	@GetMapping("/car")
 	public String cars() {
-		return "Program";
+		return "Java";
 	}
 }
